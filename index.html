@@ -5,9 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light only">
 <title>Schulischer Teil der Fachhochschulreife – Rechner | BBS Nienburg</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+/* Schriften liegen lokal (keine Verbindung zu Google beim Aufruf) */
+@font-face{ font-family:"Inter"; src:url("fonts/inter-latin.woff2") format("woff2"); font-weight:400 700; font-display:swap; }
+@font-face{ font-family:"Space Grotesk"; src:url("fonts/spacegrotesk-latin.woff2") format("woff2"); font-weight:400 700; font-display:swap; }
 :root{
   --blau:#1D4E9E;
   --blau-dunkel:#0E2A54;
@@ -309,7 +310,12 @@ footer{background:linear-gradient(165deg,#1E5E23,#123F1A);color:#C4DDB4}
   input.pt{background:#fff!important;border:1px solid #999;color:#000!important;width:100%;padding:3px 2px;font-size:10.5pt}
   td.leer{background:#fff}
   .hj8{display:none!important}
+  .formhinweis{display:none!important}
+  .nur-druck{display:block!important}
+  .druck-hinweis{margin:8px 0 0;padding:6px 10px;border:1px solid #999;border-radius:6px;font-size:9pt;color:#000}
 }
+.nur-druck{display:none}
+.formhinweis{margin:0 0 12px;font-size:.85rem;line-height:1.4;color:#5b6470}
 
 
 /* Zurück zum BG-Dashboard */
@@ -341,7 +347,7 @@ footer{background:linear-gradient(165deg,#1E5E23,#123F1A);color:#C4DDB4}
   <div class="hero">
     <span class="eyebrow">Fachhochschulreife · Schulischer Teil</span>
     <h1>Reicht es für den <span class="akz">schulischen Teil der Fachhochschulreife?</span></h1>
-    <p>Tragen Sie Ihre Notenpunkte ein – der Rechner prüft die Anforderungen nach §&nbsp;17 AVO-GOBAK und ermittelt sofort die Gesamtpunktzahl und die Durchschnittsnote für den schulischen Teil der Fachhochschulreife.</p>
+    <p>Notenpunkte eintragen – der Rechner prüft die Anforderungen nach §&nbsp;17 AVO-GOBAK und ermittelt sofort die Gesamtpunktzahl und die Durchschnittsnote für den schulischen Teil der Fachhochschulreife.</p>
   </div>
   <svg class="hero-wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0,64 C240,16 480,16 720,40 C960,64 1200,80 1440,48 L1440,80 L0,80 Z" fill="#F6F9F3"/></svg>
 </header>
@@ -351,8 +357,8 @@ footer{background:linear-gradient(165deg,#1E5E23,#123F1A);color:#C4DDB4}
   <!-- ============ RECHNER ============ -->
   <section id="rechner">
     <span class="kicker">Rechner</span>
-    <h2>Ihre Punkte einbringen</h2>
-    <p class="lead">Wählen Sie die einzubringenden Schulhalbjahre und tragen Sie die Notenpunkte (0–15) ein. Alles Weitere berechnet sich live.</p>
+    <h2>Punkte einbringen</h2>
+    <p class="lead">Einzubringende Schulhalbjahre wählen und Notenpunkte (0–15) eintragen. Alles Weitere berechnet sich live.</p>
 
     <div class="rechner-grid">
 
@@ -363,14 +369,15 @@ footer{background:linear-gradient(165deg,#1E5E23,#123F1A);color:#C4DDB4}
         <div class="rcard reveal">
           <div class="rcard-head"><span class="rcard-num">1</span><h3>Angaben</h3></div>
           <div class="rcard-body">
+            <p class="formhinweis">Angaben freiwillig, nur für den Ausdruck. Eingaben werden nicht gespeichert und nicht übertragen.</p>
             <div class="feld">
               <label class="lbl" for="name">Name</label>
-              <input type="text" id="name" placeholder="Vor- und Nachname" autocomplete="name">
+              <input type="text" id="name" placeholder="Vor- und Nachname" autocomplete="off">
             </div>
             <div class="feld-row" style="margin-top:14px">
               <div class="feld">
                 <label class="lbl" for="gebdatum">Geburtsdatum</label>
-                <input type="text" id="gebdatum" placeholder="TT.MM.JJJJ" inputmode="numeric" autocomplete="bday">
+                <input type="text" id="gebdatum" placeholder="TT.MM.JJJJ" inputmode="numeric" autocomplete="off">
               </div>
               <div class="feld">
                 <label class="lbl" for="gebort">Geburtsort</label>
@@ -382,15 +389,15 @@ footer{background:linear-gradient(165deg,#1E5E23,#123F1A);color:#C4DDB4}
               <div class="seg" id="semSeg">
                 <label>
                   <input type="radio" name="sem" value="12" checked>
-                  <span class="t">12. Jahrgang</span><span class="d">Halbjahre 12.1 &amp; 12.2</span>
+                  <span class="t">12.1 und 12.2</span><span class="d">1. und 2. Halbjahr der Qualifikationsphase</span>
                 </label>
                 <label>
                   <input type="radio" name="sem" value="12213">
-                  <span class="t">12.2 und 13.1</span><span class="d">Halbjahre 12.2 &amp; 13.1</span>
+                  <span class="t">12.2 und 13.1</span><span class="d">2. und 3. Halbjahr der Qualifikationsphase</span>
                 </label>
                 <label>
                   <input type="radio" name="sem" value="13">
-                  <span class="t">13. Jahrgang</span><span class="d">Halbjahre 13.1 &amp; 13.2</span>
+                  <span class="t">13.1 und 13.2</span><span class="d">3. und 4. Halbjahr der Qualifikationsphase</span>
                 </label>
               </div>
             </div>
@@ -485,9 +492,13 @@ footer{background:linear-gradient(165deg,#1E5E23,#123F1A);color:#C4DDB4}
               <span class="flag idle" id="flagII"><span class="dot"></span><span class="ft">offen</span></span>
               <span class="req">Elf Ergebnisse in einfacher Wertung – zusammen mind. <b>55&nbsp;Punkte</b>.</span>
             </div>
-            <p class="faecher-status idle" id="faecherStatus"><span class="fi">○</span><span id="faecherTxt">Wähle die einzubringenden Fächer aus.</span></p>
+            <p class="faecher-status idle" id="faecherStatus"><span class="fi">○</span><span id="faecherTxt">Einzubringende Fächer auswählen.</span></p>
           </div>
         </div>
+
+        <!-- Erscheint nur auf dem Ausdruck -->
+        <p class="nur-druck druck-hinweis">Eigene Berechnung, keine Bescheinigung der Schule – ohne Gewähr. Maßgeblich sind die AVO-GOBAK und die Entscheidung der Schule.
+          <span id="druckDatum"></span></p>
 
       </div>
 
@@ -571,7 +582,7 @@ footer{background:linear-gradient(165deg,#1E5E23,#123F1A);color:#C4DDB4}
   <section id="tabelle">
     <span class="kicker">Anlage 9 AVO-GOBAK</span>
     <h2>Umrechnung in die Durchschnittsnote</h2>
-    <p class="lead">Umrechnung der Gesamtpunktzahl für den schulischen Teil der Fachhochschulreife in eine Durchschnittsnote der sechsstufigen Notenskala. Die zu Ihrer Punktzahl passende Zeile wird hervorgehoben.</p>
+    <p class="lead">Umrechnung der Gesamtpunktzahl für den schulischen Teil der Fachhochschulreife in eine Durchschnittsnote der sechsstufigen Notenskala. Die zur Punktzahl passende Zeile wird hervorgehoben.</p>
     <div class="tab-wrap reveal">
       <table class="umr" id="umrTab">
         <thead><tr><th>Gesamtpunktzahl</th><th style="text-align:right">Durchschnittsnote</th></tr></thead>
@@ -587,6 +598,7 @@ footer{background:linear-gradient(165deg,#1E5E23,#123F1A);color:#C4DDB4}
   <div class="footer-inner">
     <div><strong>BBS Nienburg/Weser</strong><br>Berufliches Gymnasium – Schulischer Teil der Fachhochschulreife</div>
     <div>Grundlage: <a href="https://voris.wolterskluwer-online.de/browse/document/79ece70a-4175-3286-bb66-537392370807" target="_blank" rel="noopener">§&nbsp;17 AVO-GOBAK</a> (Einbringung: Anlage&nbsp;7, Umrechnung: Anlage&nbsp;9).</div>
+    <div><a href="https://bbsni.github.io/BG-Dashboard/#impressum">Impressum</a> · <a href="https://bbsni.github.io/BG-Dashboard/#datenschutz">Datenschutz</a></div>
   </div>
 </footer>
 
@@ -727,7 +739,7 @@ footer{background:linear-gradient(165deg,#1E5E23,#123F1A);color:#C4DDB4}
 
     // Status-Zeile Pflichtfächer
     var fs=el('faecherStatus'), ft=el('faecherTxt');
-    if(!anySubj){ fs.className='faecher-status idle'; fs.querySelector('.fi').textContent='○'; ft.textContent='Wähle die einzubringenden Fächer aus.'; }
+    if(!anySubj){ fs.className='faecher-status idle'; fs.querySelector('.fi').textContent='○'; ft.textContent='Einzubringende Fächer auswählen.'; }
     else if(reqF){ fs.className='faecher-status ok'; fs.querySelector('.fi').textContent='✓'; ft.textContent='Alle Pflichtfächer sind mit je zwei Ergebnissen eingebracht.'; }
     else{ fs.className='faecher-status no'; fs.querySelector('.fi').textContent='✕'; ft.textContent='Noch offen (je 2 Ergebnisse nötig): '+fehlend.map(function(k){return k.label;}).join(', ')+'.'; }
 
@@ -805,7 +817,10 @@ footer{background:linear-gradient(165deg,#1E5E23,#123F1A);color:#C4DDB4}
     btn.addEventListener('click', function(){ setHalbjahr8(btn.getAttribute('data-slot')); });
   });
 
-  el('printBtn').addEventListener('click', function(){ window.print(); });
+  /* Datum auf dem Ausdruck (auch bei Strg+P) */
+  function druckDatum(){ var d=el('druckDatum'); if(d) d.textContent='Ausgedruckt am '+new Date().toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit',year:'numeric'})+'.'; }
+  window.addEventListener('beforeprint', druckDatum);
+  el('printBtn').addEventListener('click', function(){ druckDatum(); window.print(); });
   el('resetBtn').addEventListener('click', function(){
     allPt.forEach(function(e){ e.value=''; e.classList.remove('filled','low'); });
     ['name','gebdatum','gebort'].forEach(function(id){ var e=el(id); if(e) e.value=''; });
